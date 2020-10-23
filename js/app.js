@@ -5,32 +5,32 @@ import NewTask from "./NewTask";
 import Task from "./Task";
 
 const App = () => {
-    const [tasks, setTasks] = useState('');
+    const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
         getTasks(setTasks);
     }, [])
 
     const addNewTaskToState = task => {
-        addTask(task,setTasks);
+        addTask(task, setTasks);
     }
     const removeTaskFromState = id => {
-        deleteTask(id,setTasks);
+        deleteTask(id, setTasks);
     }
-    if (tasks.length !== 0) {
-        return (
-            <>
-                <NewTask onNewTask={addNewTaskToState}/>
-                {tasks.map(task => <Task key={task.id}
-                                         title={task.title}
-                                         description={task.description}
-                                         id={task.id}
-                                         status={task.status}
-                                         onRemoveTask={removeTaskFromState}/>)}
-            </>
-        )
-    } else return null;
+
+    return (
+        <>
+            <NewTask onNewTask={addNewTaskToState}/>
+            {tasks.map(task => <Task key={task.id}
+                                     title={task.title}
+                                     description={task.description}
+                                     id={task.id}
+                                     status={task.status}
+                                     onRemoveTask={removeTaskFromState}/>)}
+        </>
+    )
 }
+
 
 ReactDOM.render(
     <App/>,

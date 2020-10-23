@@ -23,11 +23,10 @@ export const addOperation = (id, operation, successCallback) => {
             "Content-Type": "application/json"
         }
     })
-        .then(r=>r.json())
+        .then(r => r.json())
         .then(data => {
-            {console.log(data)}
             if (data.error === false && typeof successCallback === "function") {
-                ;
+                getOperations(id, successCallback);
             }
         })
         .catch(err => console.warn(err))
@@ -37,19 +36,20 @@ export const getOperation = (id, successCallback) => {
         method: "GET",
         headers: {
             "Authorization": API_KEY,
-            "Content-Type": "application/json"
         }
     })
         .then(r => r.json())
+        .catch(err => console.log(err))
         .then(data => {
+            console.log(data);
             if (data.error === false && typeof successCallback === "function") {
                 successCallback(data.data);
             }
         })
         .catch(err => console.log(err))
 }
-export const changeOperation = (id, operation) => {
-    fetch(`${API_URL}/operations/${id}/`, {
+export const changeOperation = (id, operation, successCallback, taskID) => {
+    fetch(`${API_URL}/operations/${id}`, {
         method: "PUT",
         body: JSON.stringify(operation),
         headers: {
@@ -57,10 +57,15 @@ export const changeOperation = (id, operation) => {
             "Content-Type": "application/json"
         }
     })
-        .then(r => console.log(r))
+        .then(r => r.json())
+        .then(data => {
+            if (data.error === false && typeof successCallback === "function") {
+                getOperations(taskID, successCallback)
+            }
+        })
         .catch(err => console.warn(err))
 }
-export const deleteOperation = (id) => {
+export const deleteOperation = (id, successCallback, taskID) => {
     fetch(`${API_URL}/operations/${id}`, {
         method: "DELETE",
         headers: {
@@ -68,6 +73,11 @@ export const deleteOperation = (id) => {
             "Content-Type": "application/json"
         }
     })
-        .then(r => console.log(r))
+        .then(r => r.json())
+        .then(data => {
+            if (data.error === false && typeof successCallback === "function") {
+                getOperations(taskID, successCallback)
+            }
+        })
         .catch(err => console.warn(err))
 }

@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {addOperation} from "./operations";
+import {addOperation, deleteOperation} from "./operations";
 import Operation from "./Operation";
 
 const Operations = ({taskID, form, setForm, operations, setOperations, status}) => {
     const [operation, setOperation] = useState({description: '', timeSpent: 0});
+    useEffect(()=>{
+
+    },[operations])
+
     const handleChange = (e) => {
         e.preventDefault();
         setOperation({
@@ -18,8 +22,8 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
         setOperation({description: '', timeSpent: 0})
         setForm(false)
     }
-    const removeOperationFromState = () => {
-
+    const removeOperationFromState = id => {
+        deleteOperation(id,setOperations,taskID);
     }
     return (
         <>
@@ -44,11 +48,13 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
             </div>
             <ul className="list-group list-group-flush">
                 {operations.map(operation => <Operation key={operation.id}
-                    description={operation.description}
-                    onRemoveOperation={removeOperationFromState}
-                    id={operation.id}
-                    timeSpent={operation.timeSpent}
-                    status={status}/>)}
+                                                        taskID={taskID}
+                                                        description={operation.description}
+                                                        onRemoveOperation={removeOperationFromState}
+                                                        id={operation.id}
+                                                        setOperations={setOperations}
+                                                        timeSpent={operation.timeSpent}
+                                                        status={status}/>)}
             </ul>
         </>
     )

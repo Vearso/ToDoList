@@ -1,27 +1,61 @@
 import React, {useState, useEffect} from 'react';
+import {changeOperation, getOperation} from "./operations";
 
-const Operation = ({description, id, onRemoveOperation, timeSpent, status}) => {
+const Operation = ({taskID,description, id, setOperations, onRemoveOperation, timeSpent, status}) => {
     const [form,setForm] = useState(false);
+    const [time,setTime] = useState('');
+    const [operation,setOperation] = useState([]);
+
+    useEffect(()=>{
+        getOperation(id,setOperation)
+    },[])
 
     const handleAddTime = (e) =>{
         e.preventDefault();
         setForm(prev=>!prev);
     }
+    const handleChange = (e) => {
+        setTime(e.target.value);
+    }
+    const handleSave = (e) => {
+        e.preventDefault();
+        setOperation(prev=>{
+            return{
+                ...prev,
+                timeSpent: prev.timeSpent + +time,
+            }
+        })
+        changeOperation(id,{...operation,timeSpent: operation.timeSpent + +time},setOperations,taskID)
+        setTime('');
+        setForm(false);
+    }
+    const handleClose = (e) => {
+        e.preventDefault();
+        setTime('')
+        setForm(false);
+    }
+
     return (
         <>
             <li className="list-group-item d-flex justify-content-between align-items-center">
                 <div>
-                    Opis operacji
-                    <span className="badge badge-success badge-pill ml-2">2h 15m</span>
+                    {description}
+                    <span className={ timeSpent > 0 ? "badge badge-success badge-pill ml-2" : "d-none"}>{timeSpent}</span>
                 </div>
                 <form>
                     <div className={form ? "input-group input-group-sm" : "d-none"}>
                         <input type="number"
                                className="form-control"
-                               placeholder="Spent time in minutes"/>
+                               placeholder="Spent time in minutes"
+                               value={time}
+                               onChange={(e)=>handleChange(e)}/>
                         <div className="input-group-append">
-                            <button className="btn btn-outline-success"><i className="fas fa-save"/></button>
-                            <button className="btn btn-outline-dark"><i className="fas fa-times false"/></button>
+                            <button className="btn btn-outline-success"
+                                    onClick={e=>handleSave(e)}>
+                                <i className="fas fa-save"/></button>
+                            <button className="btn btn-outline-dark"
+                                    onClick={e=>handleClose(e)}>
+                                <i className="fas fa-times false"/></button>
                         </div>
                     </div>
                 </form>
@@ -30,7 +64,9 @@ const Operation = ({description, id, onRemoveOperation, timeSpent, status}) => {
                             onClick={e=>handleAddTime(e)}>
                         Add time
                         <i className="fas fa-clock ml-1"/></button>
-                    <button className="btn btn-outline-danger btn-sm"><i className="fas fa-trash"/></button>
+                    <button className="btn btn-outline-danger btn-sm"
+                            onClick={e=>onRemoveOperation(operation.id)}>
+                        <i className="fas fa-trash"/></button>
                 </div>
             </li>
         </>

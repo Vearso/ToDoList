@@ -12,13 +12,15 @@ const Task = ({title, description, id, status, onRemoveTask}) => {
     }, []);
 
     const handleFinish = (e) => {
-        e.preventDefault();
-        setIsOpen(false);
-        finishTask({
-            title: title,
-            id: id,
-            status: false,
-        })
+        if(operations.length === 0) {
+            e.preventDefault();
+            setIsOpen(false);
+            finishTask({
+                title: title,
+                id: id,
+                status: false,
+            })
+        }
     }
     const handleAddOperation = e => {
         e.preventDefault();
