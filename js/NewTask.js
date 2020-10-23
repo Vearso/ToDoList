@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 const NewTask = ({onNewTask}) => {
-    const [,] = useState();
+    //const [,] = useState();
     return(
         <div className="card shadow">
             <div className="card-body">
@@ -28,3 +28,5 @@ const NewTask = ({onNewTask}) => {
         </div>
     )
 }
+
+export default NewTask;

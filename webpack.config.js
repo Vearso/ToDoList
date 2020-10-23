@@ -1,5 +1,5 @@
 const path = require("path");
-const entryPath = "Blog";
+const entryPath = './';
 
 const autoprefixer = require('autoprefixer');
 const Html = require('html-webpack-plugin');
