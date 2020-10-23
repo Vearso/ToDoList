@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react';
 
 const Operation = ({description, id, onRemoveOperation, timeSpent, status}) => {
-    //const [,] = useState();
+    const [form,setForm] = useState(false);
+
+    const handleAddTime = () =>{
+
+    }
     return (
         <>
             <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -10,12 +14,11 @@ const Operation = ({description, id, onRemoveOperation, timeSpent, status}) => {
                     <span className="badge badge-success badge-pill ml-2">2h 15m</span>
                 </div>
                 <form>
-                    <div className="input-group input-group-sm">
+                    <div className={form ? "input-group input-group-sm" : "d-none"}>
                         <input type="number"
                                className="form-control"
-                               placeholder="Spent time in minutes"
-                               style="width: 12rem"/>
-                        <div className="input-group-append">
+                               placeholder="Spent time in minutes"/>
+                        <div className={form ? "d-none" : "input-group-append"}>
                             <button className="btn btn-outline-success"><i className="fas fa-save"/></button>
                             <button className="btn btn-outline-dark"><i className="fas fa-times false"/></button>
                         </div>

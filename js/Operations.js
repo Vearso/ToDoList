@@ -4,7 +4,6 @@ import Operation from "./Operation";
 
 const Operations = ({taskID, form, setForm, operations, setOperations, status}) => {
     const [operation, setOperation] = useState({description: '', timeSpent: 0});
-
     const handleChange = (e) => {
         e.preventDefault();
         setOperation({
@@ -19,11 +18,9 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
         setOperation({description: '', timeSpent: 0})
         setForm(false)
     }
-
     const removeOperationFromState = () => {
 
     }
-
     return (
         <>
             <div className="card-body">
@@ -46,13 +43,12 @@ const Operations = ({taskID, form, setForm, operations, setOperations, status}) 
                 </form>
             </div>
             <ul className="list-group list-group-flush">
-                {console.log(operations)}
-                {/*{operations.map(operation => <Operation key={operation.id}*/}
-                {/*                                        description={operation.description}*/}
-                {/*                                        onRemoveOperation={removeOperationFromState}*/}
-                {/*                                        id={operation.id}*/}
-                {/*                                        timeSpent={operation.timeSpent}*/}
-                {/*                                        status={status}/>)}*/}
+                {operations.map(operation => <Operation key={operation.id}
+                    description={operation.description}
+                    onRemoveOperation={removeOperationFromState}
+                    id={operation.id}
+                    timeSpent={operation.timeSpent}
+                    status={status}/>)}
             </ul>
         </>
     )

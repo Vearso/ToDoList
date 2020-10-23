@@ -25,14 +25,15 @@ export const addOperation = (id, operation, successCallback) => {
     })
         .then(r=>r.json())
         .then(data => {
+            {console.log(data)}
             if (data.error === false && typeof successCallback === "function") {
-                getOperations(id,successCallback);
+                ;
             }
         })
         .catch(err => console.warn(err))
 }
 export const getOperation = (id, successCallback) => {
-    fetch(`${API_URL}/tasks/${id}`, {
+    fetch(`${API_URL}/operations/${id}`, {
         method: "GET",
         headers: {
             "Authorization": API_KEY,
@@ -48,7 +49,7 @@ export const getOperation = (id, successCallback) => {
         .catch(err => console.log(err))
 }
 export const changeOperation = (id, operation) => {
-    fetch(`${API_URL}/tasks/${id}/`, {
+    fetch(`${API_URL}/operations/${id}/`, {
         method: "PUT",
         body: JSON.stringify(operation),
         headers: {
@@ -60,7 +61,7 @@ export const changeOperation = (id, operation) => {
         .catch(err => console.warn(err))
 }
 export const deleteOperation = (id) => {
-    fetch(`${API_URL}/tasks/${id}`, {
+    fetch(`${API_URL}/operations/${id}`, {
         method: "DELETE",
         headers: {
             "Authorization": API_KEY,

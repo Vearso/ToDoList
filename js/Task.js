@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {getOperations} from "./operations";
 import Operations from "./Operations";
 import {deleteTask, finishTask} from "./tasks";
-import Operation from "./Operation";
-
 const Task = ({title, description, id, status, onRemoveTask}) => {
     const [operations, setOperations] = useState([]);
     const [isOpen,setIsOpen] = useState(status);
@@ -11,7 +9,6 @@ const Task = ({title, description, id, status, onRemoveTask}) => {
 
     useEffect(() => {
         getOperations(id, setOperations);
-
     }, []);
 
     const handleFinish = (e) => {
@@ -63,5 +60,7 @@ const Task = ({title, description, id, status, onRemoveTask}) => {
 
     )
 }
+
+import Operation from "./Operation";
 
 export default Task;
