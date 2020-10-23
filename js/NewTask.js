@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 
 const NewTask = ({onNewTask}) => {
-    const [form, setForm] = useState({title: '', description: '',status: 'open'});
+    const [task, setTask] = useState({title: '', description: '',status: 'open'});
     const handleChange = (e) => {
         const {name,value} = e.target;
-        setForm(prev => {
+        setTask(prev => {
             return{
                 ...prev,
                 [name]: value,
@@ -13,11 +13,10 @@ const NewTask = ({onNewTask}) => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(form.title ==='' || form.description ===''){
+        if(task.title ==='' || task.description ===''){
             e.target.style.border = '1px solid red';
         }else {
-            console.log(form);
-            onNewTask(form);
+            onNewTask(task);
         }
 
     }
@@ -31,7 +30,7 @@ const NewTask = ({onNewTask}) => {
                                className="form-control"
                                name="title"
                                placeholder="Title"
-                               value={form.title}
+                               value={task.title}
                                onChange={e=>handleChange(e)}/>
                     </div>
                     <div className="form-group">
@@ -39,7 +38,7 @@ const NewTask = ({onNewTask}) => {
                                className="form-control"
                                name="description"
                                placeholder="Description"
-                               value={form.description}
+                               value={task.description}
                                onChange={e=>handleChange(e)}/>
                     </div>
                     <button className="btn btn-info">

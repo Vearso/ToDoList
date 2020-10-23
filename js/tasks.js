@@ -14,8 +14,8 @@ export const getTasks = successCallback => {
         })
         .catch(err => console.warn(err));
 }
-export const addTask = (task,successCallback) => {
-    fetch(`${API_URL}/tasks`,{
+export const addTask = (task, successCallback) => {
+    fetch(`${API_URL}/tasks`, {
         headers: {
             "Authorization": API_KEY,
             "Content-Type": "application/json"
@@ -26,13 +26,13 @@ export const addTask = (task,successCallback) => {
         .then(r => r.json())
         .then(data => {
             if (data.error === false && typeof successCallback === 'function') {
-                successCallback(data.data);
+                getTasks(successCallback)
             }
         })
         .catch(err => console.warn(err));
 }
-export const finishTask = (task,successCallback) => {
-    fetch(`${API_URL}/tasks/${task.id}`,{
+export const finishTask = (task) => {
+    fetch(`${API_URL}/tasks/${task.id}`, {
         method: "PUT",
         body: JSON.stringify(task),
         headers: {
@@ -40,16 +40,10 @@ export const finishTask = (task,successCallback) => {
             "Content-Type": "application/json"
         }
     })
-        .then(r => r.json())
-        .then(data => {
-            if (data.error === false && typeof successCallback === 'function') {
-                successCallback(data.data);
-            }
-        })
         .catch(err => console.warn(err));
 }
-export const deleteTask = (id,successCallback) => {
-    fetch(`${API_URL}/tasks/${id}`,{
+export const deleteTask = (id, successCallback) => {
+    fetch(`${API_URL}/tasks/${id}`, {
         method: "DELETE",
         headers: {
             "Authorization": API_KEY,
@@ -58,7 +52,7 @@ export const deleteTask = (id,successCallback) => {
         .then(r => r.json())
         .then(data => {
             if (data.error === false && typeof successCallback === 'function') {
-                successCallback(data.data);
+                getTasks(successCallback)
             }
         })
         .catch(err => console.warn(err));
