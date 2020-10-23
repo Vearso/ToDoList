@@ -3,8 +3,9 @@ import React, {useState, useEffect} from 'react';
 const Operation = ({description, id, onRemoveOperation, timeSpent, status}) => {
     const [form,setForm] = useState(false);
 
-    const handleAddTime = () =>{
-
+    const handleAddTime = (e) =>{
+        e.preventDefault();
+        setForm(prev=>!prev);
     }
     return (
         <>
@@ -18,14 +19,15 @@ const Operation = ({description, id, onRemoveOperation, timeSpent, status}) => {
                         <input type="number"
                                className="form-control"
                                placeholder="Spent time in minutes"/>
-                        <div className={form ? "d-none" : "input-group-append"}>
+                        <div className="input-group-append">
                             <button className="btn btn-outline-success"><i className="fas fa-save"/></button>
                             <button className="btn btn-outline-dark"><i className="fas fa-times false"/></button>
                         </div>
                     </div>
                 </form>
-                <div>
-                    <button className="btn btn-outline-success btn-sm mr-2">
+                <div className={form ? "d-none" : null}>
+                    <button className="btn btn-outline-success btn-sm mr-2"
+                            onClick={e=>handleAddTime(e)}>
                         Add time
                         <i className="fas fa-clock ml-1"/></button>
                     <button className="btn btn-outline-danger btn-sm"><i className="fas fa-trash"/></button>
