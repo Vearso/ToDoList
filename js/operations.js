@@ -1,4 +1,4 @@
-import {API_KEY, API_URL} from "./API-tasks/constants";
+import {API_KEY, API_URL} from "./constants";
 
 export const getOperations = (id, successCallback) => {
     fetch(`${API_URL}/tasks/${id}/operations`, {
@@ -53,7 +53,7 @@ export const changeOperation = (id, operation) => {
 }
 export const deleteOperation = (id) => {
     fetch(`${API_URL}/tasks/${id}`, {
-        method: "DELETE,
+        method: "DELETE",
         headers: {
             "Authorization": API_KEY,
         }
