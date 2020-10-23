@@ -40,7 +40,8 @@ const Operation = ({taskID,description, id, setOperations, onRemoveOperation, ti
             <li className="list-group-item d-flex justify-content-between align-items-center">
                 <div>
                     {description}
-                    <span className={ timeSpent > 0 ? "badge badge-success badge-pill ml-2" : "d-none"}>{timeSpent}</span>
+                    <span className={ timeSpent > 0 ? "badge badge-success badge-pill ml-2" : "d-none"}>
+                        {Math.floor(timeSpent / 60)}h &nbsp; {(timeSpent % 60)}m</span>
                 </div>
                 <form>
                     <div className={form ? "input-group input-group-sm" : "d-none"}>
